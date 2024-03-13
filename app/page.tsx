@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import dynamic from 'next/dynamic';
 import AirPollution from "./Components/AirPollution/AirPollution";
 import DailyForecast from "./Components/DailyForecast/DailyForecast";
 import FeelsLike from "./Components/FeelsLike/FeelsLike";
@@ -22,12 +23,16 @@ export default function Home() {
 
   const getClickedCityCords = (lat: number, lon: number) => {
     setActiveCityCoords([lat, lon]);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
+
+  const Mapbox = dynamic(() => import('./Components/Mapbox/Mapbox'), { ssr: false });
 
   return (
     <main className="mx-[1rem] lg:mx-[2rem] xl:mx-[6rem] 2xl:mx-[16rem] m-auto">
